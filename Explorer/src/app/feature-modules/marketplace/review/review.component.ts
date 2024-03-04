@@ -50,6 +50,18 @@ export class ReviewComponent implements OnInit {
                     this.tourId = params["tourId"];
                     this.getReviews();
                 });
+            else {
+                this.route.params.subscribe(params => {
+                    this.tourId = params["tourId"];
+                    this.tourIdHelper = this.tourId;
+                    this.service.getReviews(this.tourIdHelper).subscribe({
+                        next: (result: PagedResults<Review>) => {
+                            this.reviews = result.results;
+                            this.reviewExists = false;
+                        },
+                    });
+                });
+            }
         });
     }
 

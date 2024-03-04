@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { MaterialModule } from "src/app/infrastructure/material/material.module";
 import { RouterModule } from "@angular/router";
+import { FormsModule } from '@angular/forms';
 import { TourCardsComponent } from "./tour-cards/tour-cards.component";
 import { BlogCardsComponent } from "./blog-cards/blog-cards.component";
 import { FooterComponent } from "./footer/footer.component";
@@ -23,6 +24,12 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlogModule } from "../blog/blog.module";
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { FrequentlyAskedQuestionsComponent } from './frequently-asked-questions/frequently-asked-questions.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CompanyComponent } from './company/company.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +49,12 @@ import { BlogModule } from "../blog/blog.module";
         ReviewCardComponent,
         PublicKeypointNotificationCardComponent,
         PageNotFoundComponent,
+        TermsOfServiceComponent,
+        PrivacyPolicyComponent,
+        FrequentlyAskedQuestionsComponent,
+        AboutUsComponent,
+        CompanyComponent,
+        ContactComponent
     ],
     imports: [
         CommonModule,
@@ -52,6 +65,7 @@ import { BlogModule } from "../blog/blog.module";
         SharedModule,
         BrowserAnimationsModule,
         BlogModule,
+        FormsModule,
     ],
     exports: [
         NavbarComponent,
@@ -62,7 +76,7 @@ import { BlogModule } from "../blog/blog.module";
         TourCardComponent,
         ReviewCardComponent,
         PublicKeypointNotificationCardComponent,
-        ClubCardComponent,
+        ClubCardComponent
     ],
 })
 export class LayoutModule {}

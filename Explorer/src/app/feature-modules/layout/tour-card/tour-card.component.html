@@ -24,7 +24,7 @@
         <div class="tour-review-content">
             <p>Rating:</p> <!--<img class="tour-review-icon" [src]="'/assets/icons/star.svg'" /> -->
             <fa-icon class="tour-rating-star" [icon]="faStar"/>
-            <div class="tour-review"> {{ tour.averageRating }}</div>
+            <div class="tour-review"> {{ getRoundedRating() }}</div>
             
             
         </div>

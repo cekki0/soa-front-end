@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { MyClubJoinRequest } from '../model/my-club-join-request.model';
 import { ClubJoinRequest } from '../model/club-join-request.model copy';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'xp-clubs',
@@ -26,7 +27,8 @@ export class ClubsComponent implements OnInit{
 
   constructor(
     private service: MarketplaceService, 
-    private authService: AuthService
+    private authService: AuthService,
+    private notifier: NotifierService
   ) {}
 
   ngOnInit(): void {
@@ -54,9 +56,14 @@ export class ClubsComponent implements OnInit{
   }
 
   sendJoinRequest(clubId: number): void {
+    console.log('lollllll')
     this.service.sendClubJoinRequest(this.user.id, clubId).subscribe({
+      next: () => {
+        console.log('okkkkkkk');
+        this.notifier.notify('success', 'Successfuly sent a join request.');
+      },
       error: (errData) => {
-        console.log(errData)
+        console.log(errData);
       }
     })
   }

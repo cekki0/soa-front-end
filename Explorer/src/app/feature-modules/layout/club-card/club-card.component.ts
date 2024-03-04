@@ -14,11 +14,24 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ClubMember } from "../../marketplace/model/club-member.model";
 import { Club } from "../../marketplace/model/club.model";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { NotifierService } from "angular-notifier";
 
 @Component({
     selector: "xp-club-card",
     templateUrl: "./club-card.component.html",
     styleUrls: ["./club-card.component.css"],
+    animations: [
+        trigger("fadeIn", [
+            transition(":enter", [
+                style({ opacity: 0, transform: "translateX(-40px)" }),
+                animate(
+                    "0.5s ease",
+                    style({ opacity: 1, transform: "translateX(0)" }),
+                ),
+            ]),
+        ]),
+    ],
 })
 export class ClubCardComponent {
     @Output() editClubClicked = new EventEmitter<Club>();
@@ -38,6 +51,7 @@ export class ClubCardComponent {
     constructor(
         private service: MarketplaceService,
         private authService: AuthService,
+        private notifier: NotifierService
     ) {}
 
     ngOnInit(): void {
@@ -101,6 +115,7 @@ export class ClubCardComponent {
         this.service.sendClubJoinRequest(this.user.id, this.club.id).subscribe({
             next: () => {
                 this.getClubJoinRequests();
+                this.notifier.notify('success', 'Successfuly sent a join request.');
             },
             error: errData => {
                 console.log(errData);

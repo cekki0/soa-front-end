@@ -2,62 +2,74 @@ import { Component, OnInit } from "@angular/core";
 import { LayoutService } from "../layout.services";
 import { Blog } from "../../blog/model/blog.model";
 import { PagedResults } from "src/app/shared/model/paged-results.model";
+import { User } from "src/app/infrastructure/auth/model/user.model";
+import { Vote } from "../../blog/model/vote.model";
+import { BlogService } from "../../blog/blog.service";
+import { trigger, transition, style, animate } from "@angular/animations";
+import { AuthService } from "src/app/infrastructure/auth/auth.service";
 
 @Component({
     selector: "xp-blog-cards",
     templateUrl: "./blog-cards.component.html",
     styleUrls: ["./blog-cards.component.css"],
+    animations: [
+        trigger("fadeIn", [
+            transition(":enter", [
+                style({ opacity: 0, transform: "translateX(-40px)" }),
+                animate(
+                    "0.5s ease",
+                    style({ opacity: 1, transform: "translateX(0)" }),
+                ),
+            ]),
+        ]),
+    ],
 })
 export class BlogCardsComponent implements OnInit {
     currentIndex = 0;
     popularBlogs: Blog[];
     blogContainer: any;
-    constructor(private service: LayoutService) {}
+    user: User;
+    constructor(
+        private service: LayoutService,
+        private blogService: BlogService,
+        private authService: AuthService,
+    ) {}
     ngOnInit(): void {
         this.blogContainer = document.querySelector(".blog-container");
         this.service.getPopularBlogs().subscribe({
             next: (result: PagedResults<Blog>) => {
-                this.popularBlogs = result.results.slice(0, 3);
-                //console.log(this.adventureTours)
+                this.popularBlogs = result.results
+                    .filter(blog => blog.status === 4)
+                    .slice(0, 3);
+            },
+        });
+        this.authService.user$.subscribe(user => {
+            this.user = user;
+        });
+    }
+    getVote(blog: Blog): Vote | undefined {
+        return blog.votes.find(x => x.userId == this.user?.id);
+    }
+
+    upVoteBlog(blogId: number): void {
+        this.blogService.upVoteBlog(blogId).subscribe({
+            next: (result: any) => {
+                //unblock voting
+            },
+            error: () => {
+                //undo front end vote
             },
         });
     }
-    scrollToPrev() {
-        this.currentIndex--;
-        if (this.currentIndex < 0) {
-            this.currentIndex = this.blogContainer!.children.length - 1;
-        }
-        this.blogContainer!.scrollLeft -=
-            this.blogContainer.children[this.currentIndex].clientWidth;
+
+    downVoteBlog(blogId: number): void {
+        this.blogService.downVoteBlog(blogId).subscribe({
+            next: (result: any) => {
+                //unblock voting
+            },
+            error: () => {
+                //undo front end vote
+            },
+        });
     }
-    scrollToNext() {
-        this.currentIndex++;
-        if (this.currentIndex >= this.blogContainer.children.length) {
-            this.currentIndex = 0;
-        }
-        this.blogContainer.scrollLeft +=
-            this.blogContainer.children[this.currentIndex].clientWidth;
-    }
-    blogsList = [
-        {
-            date: "02/02/2020",
-            name: "The Perfect Adventurer's Guide",
-            author: "Anja Ducic",
-        },
-        {
-            date: "02/03/2022",
-            name: "Travels, Tastes and Adventures",
-            author: "Ivana Kovacevic",
-        },
-        {
-            date: "11/03/2022",
-            name: "Journey through Time and Cultures",
-            author: "Filip Simic",
-        },
-        {
-            date: "11/04/2021",
-            name: "Perfect Roads Of World In My Story",
-            author: "Marko Nikolic",
-        },
-    ];
 }

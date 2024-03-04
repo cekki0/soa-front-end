@@ -15,6 +15,7 @@ import { NotifierService } from "angular-notifier";
 })
 export class RegistrationComponent {
     isPasswordVisible: boolean;
+    agreesWithTOSAndPP: boolean = false;
 
     constructor(
         private authService: AuthService,
@@ -43,6 +44,14 @@ export class RegistrationComponent {
         };
 
         if (this.registrationForm.valid) {
+            if(!this.agreesWithTOSAndPP) {
+                this.notifier.notify(
+                    "error",
+                    "You must agree to the terms of service and privacy policy before trying to register.",
+                );
+                return;
+            }
+
             this.authService.register(registration).subscribe({
                 next: () => {
                     this.notifier.notify(
@@ -69,6 +78,18 @@ export class RegistrationComponent {
     togglePasswordVisibility() {
         this.isPasswordVisible = !this.isPasswordVisible;
     }
+
+    openTermsOfService(): void {
+        window.open('http://localhost:4200/terms-of-service', '_blank');
+    }
+
+    openPrivacyPolicy(): void {
+        window.open('http://localhost:4200/privacy-policy', '_blank');
+    }
+
+    handleCheckboxChange(event: Event) {
+        this.agreesWithTOSAndPP = !this.agreesWithTOSAndPP;
+      }
 
     faXmark = faXmark;
     faEye = faEye;

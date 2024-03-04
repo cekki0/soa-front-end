@@ -19,6 +19,7 @@ export class KeyPointCardComponent implements OnInit {
     @Input() isAddNew: boolean = false;
     @Input() isAddNewPublic: boolean = false;
     @Input() isPublic: boolean = false;
+    @Input() viewOnly: boolean = false;
     @Output() deleteClicked = new EventEmitter<number>();
     keyPointImage: string;
     faCross = faXmark;

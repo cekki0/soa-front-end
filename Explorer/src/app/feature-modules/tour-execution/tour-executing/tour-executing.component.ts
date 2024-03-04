@@ -22,6 +22,7 @@ import { UserPositionWithRange } from "../../encounter/model/user-position-with-
 import { MapComponent } from "src/app/shared/map/map.component";
 import { NotifierService } from "angular-notifier";
 import { TourCompletedPopupComponent } from "../tour-completed-popup/tour-completed-popup.component";
+import { TouristPositionSimulatorComponent } from "../tourist-position-simulator/tourist-position-simulator.component";
 
 @Component({
     selector: "xp-tour-executing",
@@ -64,7 +65,7 @@ export class TourExecutingComponent implements OnInit {
     tourImage: string;
     touristPosition: any = null;
     encounterPoint: KeyPointEncounter;
-    matDialogRef: MatDialogRef<PositionSimulatorComponent, any> | undefined;
+    matDialogRef: MatDialogRef<TouristPositionSimulatorComponent, any> | undefined;
     faLocation = faLocation;
     donutColor: string = "#ff0000";
 
@@ -97,7 +98,7 @@ export class TourExecutingComponent implements OnInit {
                 this.touristId = result.id;
 
                 this.getTouristPosition();
-                this.positionSubscription = interval(10000).subscribe(() => {
+                this.positionSubscription = interval(5000).subscribe(() => {
                     this.getTouristPosition();
                 });
             },
@@ -233,6 +234,8 @@ export class TourExecutingComponent implements OnInit {
         if (this.session.status != TourExecutionSessionStatus.Started) {
             this.router.navigate(["/purchasedtours"]);
         }
+        //this.notifier.notify("error", "You must fill all fields");
+        
         let r = confirm("Are you sure you want to leave this tour?");
         if (r) {
             this.execution.tourId = this.session.tourId;
@@ -323,7 +326,7 @@ export class TourExecutingComponent implements OnInit {
             this.matDialogRef.close();
             return;
         }
-        this.matDialogRef = this.dialogRef.open(PositionSimulatorComponent);
+        this.matDialogRef = this.dialogRef.open(TouristPositionSimulatorComponent);
         this.matDialogRef.afterClosed().subscribe(result => {
             this.matDialogRef = undefined;
         });

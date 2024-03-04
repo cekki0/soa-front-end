@@ -39,14 +39,13 @@
                     *ngIf="tour.status == 2 || tour.status == 0"
                     [icon]="faTrash"
                 />
-                
+
                 <fa-icon
                     class="tour-action"
                     [icon]="faPersonHiking"
                     [routerLink]="['/tours/equipment', tour.id]"
                 />
-               
-                
+
                 <fa-icon
                     class="tour-action"
                     *ngIf="tour.status == 1 || tour.status == 2"
@@ -59,7 +58,6 @@
                     [icon]="faMapLocation"
                     [routerLink]="['/tour', tour.id, 'key-points']"
                 />
-                
             </div>
         </div>
         <div class="tour-card-information">
@@ -68,7 +66,7 @@
                 <div class="tour-rating">
                     <fa-icon class="tour-rating-star" [icon]="faStar" />
                     <div class="tour-rating-average">
-                        {{ tour.averageRating }}
+                        {{ getRoundedRating() }}
                     </div>
                     <div class="tour-rating-count">(17 reviews)</div>
                 </div>
@@ -106,12 +104,18 @@
                     <div *ngIf="discount" class="tour-price-value">
                         <s>{{ tour.price }}</s>
                     </div>
-                    <fa-icon *ngIf="discount" class="tour-price-tokens" [icon]="faCoins" />
-                    <div class="discount">&nbsp;&nbsp;-{{ discount! * 100 }}%</div>
+                    <fa-icon
+                        *ngIf="discount"
+                        class="tour-price-tokens"
+                        [icon]="faCoins"
+                    />
+                    <div class="discount">
+                        &nbsp;&nbsp;-{{ discount! * 100 }}%
+                    </div>
                     <div class="tour-price-value">{{ discountedPrice! }}</div>
                     <fa-icon class="tour-price-tokens" [icon]="faCoins" />
                 </div>
-                
+
                 <div
                     class="btn view"
                     [routerLink]="['/tour/', tour.id]"
@@ -120,7 +124,10 @@
                     <fa-icon [icon]="faMap" />
                     &nbsp;View tour
                 </div>
-                <div class="btn view" (click)="remove(); $event.stopPropagation()" >
+                <div
+                    class="btn view"
+                    (click)="remove(); $event.stopPropagation()"
+                >
                     <fa-icon [icon]="faTrash" />
                     &nbsp;Remove from wishlist
                 </div>
@@ -128,4 +135,3 @@
         </div>
     </div>
 </div>
-

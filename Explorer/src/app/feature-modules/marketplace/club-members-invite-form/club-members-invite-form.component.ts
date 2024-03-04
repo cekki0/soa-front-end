@@ -36,7 +36,7 @@ export class ClubMembersInviteFormComponent implements OnChanges {
 
     ngOnInit() {
         this.userService.getPeople().subscribe(result => {
-            this.users = result.results;
+            this.users = result.results.filter(r => r.user.role=='2');
         });
     }
 

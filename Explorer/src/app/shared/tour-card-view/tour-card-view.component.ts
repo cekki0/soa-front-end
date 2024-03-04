@@ -345,4 +345,9 @@ export class TourCardViewComponent implements OnChanges {
             },
         });
     }
+
+    getRoundedRating(): number {
+        if(!this.tour.averageRating) return 0;
+        return parseFloat(this.tour.averageRating.toFixed(2));
+    }
 }

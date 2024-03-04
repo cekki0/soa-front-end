@@ -43,7 +43,9 @@ export class ProblemResolvingNotificationsComponent {
         notification: ProblemResolvingNotification,
         problemId: number,
     ) {
-        this.service.setSeenStatus(notification.id).subscribe();
+        if (!notification.hasSeen) {
+            this.service.setSeenStatus(notification.id).subscribe();
+        }
         this.service.getProblem(problemId, this.user.role).subscribe({
             next: (result: ProblemUser) => {
                 const dialogRef = this.dialogRef.open(ProblemAnswerComponent, {

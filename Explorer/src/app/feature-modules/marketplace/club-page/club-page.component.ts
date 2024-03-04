@@ -219,6 +219,7 @@ export class ClubPageComponent {
         this.marketplaceService.kickMember(membership.membershipId).subscribe({
             next: () => {
                 this.router.navigate(["/clubs"]);
+                this.notifier.notify('error', 'Successfuly left the club.');
             },
         });
     }

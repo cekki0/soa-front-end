@@ -33,6 +33,7 @@
 
 .tours {
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 22rem;
     margin-bottom: 2rem;
 }

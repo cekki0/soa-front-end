@@ -1,0 +1,53 @@
+<div class="about-us">
+    <div class="banner">
+        <img class="banner-image" src="assets/images/company.jpg"/>
+        <div class="banner-text-position">
+            <div class="banner-text">Company</div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="title">Who we are</div>
+        <div class="introduction">
+            <div class="introduction-left">
+                Kurbanov Solutions is the visionary team behind the creation of Explorer. As a dynamic and innovative company, we take pride in our roots in Novi Sad, Serbia. Comprising 16 dedicated employees, each member is a computer science student at the Faculty of Technical Sciences, bringing a wealth of technical expertise and a passion for cutting-edge solutions to the table. Our journey began with a shared commitment to redefining the travel experience through technology, and Explorer is a testament to the collaborative spirit and dedication of our team. With a collective focus on crafting intuitive and immersive solutions, Kurbanov Solutions is driven by a desire to make exploration more accessible and enjoyable for travelers worldwide. Join us on this exciting journey, as we continue to push the boundaries of innovation and redefine the future of travel experiences.
+            </div>
+            <div class="introduction-right">
+                <img class="company-logo"src="assets/images/KurbanovSolutions.png"/>
+            </div>
+        </div>
+        <div class="section" #team>
+            <div class="title">Developer team</div>
+            <div class="paragraph">
+                Meet the brilliant minds behind Explorer at Kurbanov Solutions. Our team of 16 computer science enthusiasts, all students at the Faculty of Technical Sciences in Novi Sad, Serbia, is dedicated to crafting innovative solutions.
+            </div>
+            <div class="card-container">
+                <div class="card" *ngFor="let developer of developers">
+                    <img class="card-image" [src]="developer.image"/>
+                    <div class="card-name">{{developer.name}}</div>
+                    <div class="card-job">
+                        <fa-icon [icon]="faComputer" class="computer" />
+                        {{developer.job}}
+                    </div>
+                    <div class="socials">
+                        <div class="linked-in"  (click)="openSocials(developer.linkedIn)">
+                            <div class="linked-in-background">                                    
+                                <div class="linked-in-text">Linked</div>
+                                <fa-icon [icon]="faLinkedin" class="linked-in-logo"/>
+                            </div>
+                        </div>
+                        <div class="github"  (click)="openSocials(developer.gitHub)">
+                            <fa-icon [icon]="faGithub" class="github-logo"/>
+                            <div class="github-text">GitHub</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" #carrers>
+            <div class="title">Careers</div>
+            <div class="paragraph">
+                If you are interested to work with us, please <span class="link" (click)="showContact()">contact us</span>.
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+.faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-block: 2rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-header);
+    font-size: 2rem;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+}
+
+.question-answer {
+    width: 100%;
+}
+
+.question { 
+    background-color: rgba(var(--clr-background), 1);
+    display: flex;
+    align-items: center;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    width: 100%;
+    border: rgba(var(--border-primary), 1) 1px solid;
+    transition: background-color 0.15s,
+                border 0.15s;
+    cursor: pointer;
+}
+
+.question:hover { 
+    background-color: rgba(var(--clr-primary-500), 1);
+}
+
+.question:hover .question-text { 
+    color: rgba(255, 255, 255, 1);
+}
+
+.question:hover .arrow { 
+    color: rgba(255, 255, 255, 1);
+}
+
+.question-text {  
+    max-width: 90%;
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-body);
+    font-size: 1.5rem;
+}
+
+.answer {
+    width: 100%;
+    background-color: rgba(var(--clr-background-secondary), 1);
+    border-left: rgba(var(--border-primary), 1) 1px solid;
+    border-right: rgba(var(--border-primary), 1) 1px solid;
+    max-height: 0;
+    overflow: hidden;
+    transition: background-color 0.15s,
+                border 0.15s,
+                max-height 0.3s ease;
+}
+
+.answer-text {
+    width: 100%;
+    color: rgba(var(--clr-text), 1);
+    font-family: var(--fnt-body);
+    font-size: 1rem;
+    transition: color 0.15s;
+    margin-block: 0.5rem;
+    margin-inline: 1rem;
+}
+
+.answer-expanded {
+    max-height: 300px;
+}
+
+.border-rounded-top {
+    border-top-left-radius: 0.3125rem;
+    border-top-right-radius: 0.3125rem;
+}
+
+.border-rounded-bottom {
+    border-bottom-left-radius: 0.3125rem;
+    border-bottom-right-radius: 0.3125rem;
+}
+
+.border-bottom {
+    border-bottom: rgba(var(--border-primary), 1) 1px solid;
+}
+
+.separator {
+    height: 1rem;
+    width: 100%;
+    border-bottom: rgba(var(--border-primary), 1) 1px solid;
+    transition: border 0.15s;
+    margin-block: 1rem;
+}
+
+.main-title {
+    color: rgba(var(--clr-text), 1);
+    transition: color 0.15s;
+    font-family: var(--fnt-header);
+    font-size: 2.5rem;
+    width: 100%;
+}
+
+.arrow {
+    margin-left: auto;
+    transition: transform 0.3s, color 0.15s;
+    color: rgba(var(--clr-text), 1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.spin-arrow {
+    transform: rotate(-180deg);
+}

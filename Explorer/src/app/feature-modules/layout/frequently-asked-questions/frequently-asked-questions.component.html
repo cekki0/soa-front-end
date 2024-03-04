@@ -1,0 +1,21 @@
+<div class="faq">
+    <div class="main-title">Frequently asked questions (FAQ)</div>
+    <div class="separator"></div>
+    <div class="section" *ngFor="let section of faq.faq; let i = index">
+        <div class="title">{{section.title}}</div>
+        <div class="question-answer" *ngFor="let question of section.questions; let i = index">
+            <div class="question" [class.border-rounded-top]="i == 0" [class.border-rounded-bottom]="(i == section.questions.length - 1) && !question.isExpanded" (click)="toggleAnswerExpansion(question)">
+                <div class="question-text">{{question.question}}</div>
+                <fa-icon
+                        class="arrow"
+                        [class.spin-arrow]="question.isExpanded"
+                        [icon]="faChevronDown"
+                />
+            </div>
+            <div class="answer" [class.border-bottom]="(i == section.questions.length - 1) && question.isExpanded" [class.border-rounded-bottom]="(i == section.questions.length - 1) && question.isExpanded" [class.answer-expanded]="question.isExpanded">
+                <div class="answer-text">{{question.answer}}</div>
+            </div>
+        </div>
+        <div id="lol" class="separator" *ngIf="i != faq.faq.length - 1"></div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ import {
 import { AuthService } from "src/app/infrastructure/auth/auth.service";
 import { LocationCoords } from "src/app/shared/model/location-coords.model";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "xp-tour-search",
@@ -97,6 +98,7 @@ export class TourSearchComponent implements OnInit {
     constructor(
         private service: MarketplaceService,
         private authService: AuthService,
+        private route: ActivatedRoute,
     ) {}
 
     ngOnInit(): void {
@@ -118,6 +120,15 @@ export class TourSearchComponent implements OnInit {
             page: this.currentPage,
             pageSize: this.pageSize,
         };
+
+        this.route.queryParams.subscribe(params => {
+            const tourName = params['tourName'];
+
+            if (tourName) {
+                this.searchFilter.name = tourName;
+            }
+        });
+
         this.dropped = {
             locationDropped: true,
             nameDropped: true,
@@ -167,6 +178,7 @@ export class TourSearchComponent implements OnInit {
                 this.totalCount = result.totalCount;
                 console.log(this.tours);
                 this.setPages();
+                this.scrollToTop();
             },
             error: errData => {
                 console.log(errData);
@@ -285,9 +297,9 @@ export class TourSearchComponent implements OnInit {
     }
 
     resetLocationFilter() {
-        this.longitude = -200;
-        this.latitude = -200;
-        this.distance = 0;
+        this.searchFilter.longitude = -200;
+        this.searchFilter.latitude = -200;
+        this.searchFilter.distance = 0;
     }
 
     setPages(): void {
@@ -636,5 +648,12 @@ export class TourSearchComponent implements OnInit {
             this.onSearch(1);
         }
         this.totalCount = this.tours.length;
+    }
+
+    scrollToTop(): void {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     }
 }

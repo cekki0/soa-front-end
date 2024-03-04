@@ -55,7 +55,7 @@
     </div>
     <div
         class="delete-button"
-        *ngIf="!isAddNew && !isAddNewPublic && !isPublic"
+        *ngIf="!isAddNew && !isAddNewPublic && !isPublic && !viewOnly"
         (click)="delete(); $event.stopPropagation()"
         tooltipPosition="bottom"
         pTooltip="Delete"

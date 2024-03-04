@@ -1,8 +1,13 @@
 .tour-page {
     display: flex;
+    flex-direction: column;
     width: 80%;
     margin-inline: auto;
     margin-bottom: 2rem;
+}
+
+.row {
+    display: flex;
 }
 
 .tour-page-left {
@@ -42,7 +47,7 @@
     font-size: 2.5rem;
     font-weight: 600;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
 }
 
 .tour-tags {
@@ -77,7 +82,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
     width: 50%;
 }
 
@@ -86,7 +91,7 @@
     font-size: 1.5rem;
     font-weight: 400;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
     width: 50%;
     line-height: 1.5rem;
 }
@@ -116,7 +121,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
     width: 100%;
 }
 
@@ -125,7 +130,7 @@
     font-size: 1.5rem;
     font-weight: 400;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
     width: 100%;
     line-height: 1.5rem;
 }
@@ -172,13 +177,13 @@
     font-size: 2rem;
 }
 
-.title{
+.title {
     margin-top: 2rem;
     font-family: var(--fnt-header);
     font-size: 2rem;
     font-weight: 600;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
 }
 
 .text {
@@ -187,7 +192,7 @@
     font-size: 1.5rem;
     font-weight: 400;
     color: rgba(var(--clr-text), 1);
-    transition:  color 0.15s;
+    transition: color 0.15s;
 }
 
 .cards {

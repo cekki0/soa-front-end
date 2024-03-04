@@ -77,6 +77,14 @@
                     (click)="togglePasswordVisibility()"
                 />
             </div>
+            <div class="tos-pp">
+                <input
+                    class="check"
+                    type="checkbox"
+                    (change)="handleCheckboxChange($event)"
+                />
+                <div class="register-question">I accept the <span class="register-login" (click)="openTermsOfService()">terms of service</span> and <span class="register-login"  (click)="openPrivacyPolicy()">privacy policy</span>.</div>
+            </div>
             <button class="register-submit" type="submit">
                 <div class="register-submit-text">Register</div>
             </button>

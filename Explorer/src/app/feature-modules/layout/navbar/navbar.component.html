@@ -29,7 +29,21 @@
                     />
                 </div>
                 <div class="navbar-submenu">
-                    <div class="navbar-submenu-item">
+                    <div class="navbar-submenu-item" [routerLink]="['about-us']">
+                        <fa-icon
+                            class="navbar-submenu-item-icon"
+                            [icon]="faCircleInfo"
+                        />
+                        <div class="navbar-submenu-item-text">About us</div>
+                    </div>
+                    <div class="navbar-submenu-item" [routerLink]="['company']">
+                        <fa-icon
+                            class="navbar-submenu-item-icon"
+                            [icon]="faComputer"
+                        />
+                        <div class="navbar-submenu-item-text">Company</div>
+                    </div>
+                    <div class="navbar-submenu-item" [routerLink]="['frequently-asked-questions']">
                         <fa-icon
                             class="navbar-submenu-item-icon"
                             [icon]="faQuestionCircle"
@@ -38,7 +52,7 @@
                     </div>
                     <div
                         class="navbar-submenu-item"
-                        [routerLink]="['translate']"
+                        (click)="openTranslate()"
                     >
                         <fa-icon
                             class="navbar-submenu-item-icon"
@@ -46,12 +60,32 @@
                         />
                         <div class="navbar-submenu-item-text">Translate</div>
                     </div>
-                    <div class="navbar-submenu-item">
+                    <div class="navbar-submenu-item" (click)="showContact()">
                         <fa-icon
                             class="navbar-submenu-item-icon"
                             [icon]="faPhone"
                         />
                         <div class="navbar-submenu-item-text">Contact us</div>
+                    </div>
+                    <div
+                        class="navbar-submenu-item"
+                        [routerLink]="['terms-of-service']"
+                    >
+                        <fa-icon
+                            class="navbar-submenu-item-icon"
+                            [icon]="faScroll"
+                        />
+                        <div class="navbar-submenu-item-text">Terms of service</div>
+                    </div>
+                    <div
+                        class="navbar-submenu-item"
+                        [routerLink]="['privacy-policy']"
+                    >
+                        <fa-icon
+                            class="navbar-submenu-item-icon"
+                            [icon]="faShield"
+                        />
+                        <div class="navbar-submenu-item-text">Privacy policy</div>
                     </div>
                 </div>
                 <div
@@ -329,7 +363,7 @@
                         </div>
                     </div>
 
-                    <div
+                    <!-- <div
                         class="navbar-submenu-item"
                         [routerLink]="['tourist-position-simulator']"
                         *ngIf="user && user.role === 'tourist'"
@@ -341,7 +375,7 @@
                         <div class="navbar-submenu-item-text">
                             Change position
                         </div>
-                    </div>
+                    </div> -->
 
                     <div
                         class="navbar-submenu-item"
@@ -484,7 +518,7 @@
                     />
                 </div>
                 <div class="navbar-submenu">
-                    <div class="navbar-submenu-item">
+                    <!-- <div class="navbar-submenu-item">
                         <fa-icon
                             class="navbar-submenu-item-icon"
                             [icon]="faEuroSign"
@@ -497,7 +531,7 @@
                             [icon]="faGlobe"
                         />
                         <div class="navbar-submenu-item-text">Language</div>
-                    </div>
+                    </div> -->
                     <div class="navbar-submenu-item">
                         <fa-icon
                             class="navbar-submenu-item-icon"

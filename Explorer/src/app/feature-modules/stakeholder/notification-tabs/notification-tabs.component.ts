@@ -45,9 +45,6 @@ export class NotificationTabsComponent implements OnInit {
 
     setActiveTab(tab: Tab, el: HTMLElement): void {
         this.selectedTab = tab;
-        setTimeout(() => {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 1);
     }
 
     //icons

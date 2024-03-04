@@ -1,20 +1,19 @@
 <div class="banner">
     <div class="banner-image"></div>
     <div class="overlay">
-        <h1>Lorem ipsum dolor sit amet.</h1>
+        <h1>Where every plan becomes an unforgettable journey</h1>
         <div class="home-search-bar">
             <fa-icon [icon]="faSearch" class="search-icon" />
             <input
                 type="text"
                 class="search-input"
                 placeholder="Places to go, things to do, blogs,..."
+                [(ngModel)]="tourSearchInput"
             />
-            <div class="btn search-button">Search</div>
+            <div class="btn search-button" (click)="searchTours()">Search</div>
         </div>
         <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro
-            fugiat eos eligendi optio non possimus nesciunt minima deserunt
-            aliquid totam.
+            Welcome to Explorer – your ultimate travel companion. Discover curated tours, interactive maps, and local insights, connecting you to the heart of every destination. Explore with confidence, make unforgettable memories, and turn every trip into an extraordinary adventure.
         </p>
     </div>
 </div>

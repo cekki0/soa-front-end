@@ -99,4 +99,9 @@ export class TourCardComponent implements OnInit {
     getFirstImage() {
         return environment.imageHost + this.tour.keyPoints[0].imagePath;
     }
+
+    getRoundedRating(): number {
+        if(!this.tour.averageRating) return 0;
+        return parseFloat(this.tour.averageRating.toFixed(2));
+    }
 }

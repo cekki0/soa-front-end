@@ -1,4 +1,4 @@
-<footer class="footer">
+<!-- <footer class="footer">
     <div class="footer-container">
         <div class="footer-row">
             <div class="footer-column">
@@ -54,4 +54,71 @@
         <div class="footer-line"></div>
         <p>Copyright &copy; 2023 Explorer. All Rights Reserved.</p>
     </div>
+</footer> -->
+
+<footer class="footer">
+    <div class="footer-top">
+        <div class="top-flex">
+            <div class="logos">
+                <div class="navbar-logo" [routerLink]="['']">
+                    <img class="navbar-logo-icon" src="/assets/icons/logo.svg" />
+                    <div class="navbar-logo-text">Explorer</div>
+                </div>
+                <img class="company-logo"src="assets/images/KurbanovSolutions.png" [routerLink]="['company']"/>
+            </div>
+            <div class="menus">
+                <div class="menu">
+                    <div class="title">About Explorer</div>
+                    <div class="item" [routerLink]="['']">Home</div>
+                    <div class="item" [routerLink]="['about-us']">About us</div>
+                </div>
+                <div class="menu">
+                    <div class="title">Company</div>
+                    <div class="item" [routerLink]="['company']">About us</div>
+                    <div class="item" [routerLink]="['company']">Our team</div>
+                    <div class="item" [routerLink]="['company']">Careers</div>
+                </div>
+                <div class="menu">
+                    <div class="title">Support</div>
+                    <div class="item" [routerLink]="['frequently-asked-questions']">Frequently asked questions</div>
+                    <div class="item" (click)="openTranslate()">Translate</div>
+                    <div class="item" [routerLink]="['terms-of-service']">Terms of service</div>
+                    <div class="item" [routerLink]="['privacy-policy']">Privacy policy</div>
+                </div>
+                <div class="menu">
+                    <div class="title">Contact</div>
+                    <div class="contact">
+                        <fa-icon class="contact-icon" [icon]="faPhone"/>
+                        <div class="contact-text">(+381) 60 000 0000</div>
+                    </div>
+                    <div class="contact">
+                        <fa-icon class="contact-icon" [icon]="faEnvelope"/>
+                        <div class="contact-text">explorer.team.service@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div class="footer-bottom">
+        <div class="socials">
+            <div class="social">
+                <fa-icon class="social-icon" [icon]="faFacebookF"/>
+            </div>
+            <div class="social">
+                <fa-icon class="social-icon" [icon]="faInstagram"/>
+            </div>
+            <div class="social">
+                <fa-icon class="social-icon" [icon]="faXTwitter"/>
+            </div>
+            <div class="social">
+                <fa-icon class="social-icon" [icon]="faTiktok"/>
+            </div>
+            <div class="social">
+                <fa-icon class="social-icon" [icon]="faYoutube"/>
+            </div>
+        </div>
+        <div class="copyright">Copyright &copy; 2023-2024 Explorer by Kurbanov Solutions. All Rights Reserved.</div>
+    </div>
 </footer>
+

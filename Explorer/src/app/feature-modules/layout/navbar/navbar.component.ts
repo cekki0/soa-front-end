@@ -12,7 +12,6 @@ import { ThemeService } from "../../../infrastructure/theme/theme.service";
 import { NavigationStart, NavigationEnd, Router } from "@angular/router";
 import { LoginComponent } from "src/app/infrastructure/auth/login/login.component";
 import { RegistrationComponent } from "src/app/infrastructure/auth/registration/registration.component";
-import { faFolderClosed } from "@fortawesome/free-regular-svg-icons";
 import {
     faChevronDown,
     faPhone,
@@ -48,6 +47,10 @@ import {
     faBoxOpen,
     faBarChart,
     faCheckSquare,
+    faScroll,
+    faFolderClosed,
+    faCircleInfo,
+    faComputer,
 } from "@fortawesome/free-solid-svg-icons";
 import { StakeholderService } from "../../stakeholder/stakeholder.service";
 import { interval, Subscription } from "rxjs";
@@ -55,6 +58,7 @@ import { RatingFormComponent } from "../../marketplace/rating-form/rating-form.c
 import { PagedResults } from "src/app/shared/model/paged-results.model";
 import { ClubInvitationWithClubAndOwnerName } from "../../marketplace/model/club-invitation-with-club-and-owner-name.model";
 import { MarketplaceService } from "../../marketplace/marketplace.service";
+import { ContactComponent } from "../contact/contact.component";
 //import { } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
@@ -93,29 +97,38 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
             this.user = user;
-            if (this.user.id !== 0 && this.user.role != "administrator") {
+            if (this.user.id !== 0 && this.user.role !== "administrator") {
+                this.getUnseenNotifications();
                 this.checkNotifications = this.source.subscribe(val =>
                     this.getUnseenNotifications(),
                 );
             }
         });
-        // this.getUnseenNotifications();
+
+        // this.stakeholderService.notifications$.subscribe(_ => {
+        //     this.getUnseenNotifications();
+        // });
     }
 
     getUnseenNotifications() {
-        // console.log("subscribe");
         if (this.user!.id !== 0) {
             this.stakeholderService.countNotifications().subscribe({
                 next: (result: number) => {
-                    this.marketplaceService.getInvitations().subscribe({
-                        next: (invitations: PagedResults<ClubInvitationWithClubAndOwnerName>) => {
-                            this.notificationNumber = result + invitations.totalCount;
-                            console.log(`Notification count: ${this.notificationNumber}`)
-                        },
-                        error: (errData) => {
-                          console.log(errData);
-                        }
-                      })
+                    if (this.user?.role === "tourist") {
+                        this.marketplaceService.getInvitations().subscribe({
+                            next: (
+                                invitations: PagedResults<ClubInvitationWithClubAndOwnerName>,
+                            ) => {
+                                this.notificationNumber =
+                                    result + invitations.totalCount;
+                            },
+                            error: errData => {
+                                console.log(errData);
+                            },
+                        });
+                    } else {
+                        this.notificationNumber = result;
+                    }
                 },
             });
         }
@@ -134,6 +147,7 @@ export class NavbarComponent implements OnInit {
     }
 
     onLogout(): void {
+        document.getElementById("sidebar")!.classList.remove("active");
         this.unsubscribe();
         this.authService.logout();
         this.router.navigate([""]);
@@ -162,6 +176,14 @@ export class NavbarComponent implements OnInit {
             // console.log("destroyed");
             this.checkNotifications.unsubscribe();
         }
+    }
+
+    openTranslate(): void {
+        window.open("http://localhost:4200/translate", "_blank");
+    }
+
+    showContact(): void {
+        this.dialogRef.open(ContactComponent);
     }
 
     faChevronDown = faChevronDown;
@@ -199,4 +221,7 @@ export class NavbarComponent implements OnInit {
     faBoxOpen = faBoxOpen;
     faBarChart = faBarChart;
     faCheckSquare = faCheckSquare;
+    faScroll = faScroll;
+    faCircleInfo = faCircleInfo;
+    faComputer = faComputer;
 }

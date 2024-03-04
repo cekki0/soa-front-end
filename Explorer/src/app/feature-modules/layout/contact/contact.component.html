@@ -1,0 +1,16 @@
+<div class="contact-modal">
+    <div class="contact" (click)="$event.stopPropagation()">
+        <div class="contact-head">
+            <fa-icon class="contact-x" [icon]="faXmark" (click)="onClose()" />
+            <div class="contact-title">Contact</div>
+        </div>
+        <div class="contact-info">
+            <fa-icon class="contact-icon" [icon]="faPhone"/>
+            <div class="contact-text">Phone: (+381) 60 000 0000</div>
+        </div>
+        <div class="contact-info">
+            <fa-icon class="contact-icon" [icon]="faEnvelope"/>
+            <div class="contact-text">Email: explorer.team.service@gmail.com</div>
+        </div>
+    </div>
+</div>
