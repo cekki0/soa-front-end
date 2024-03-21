@@ -140,15 +140,14 @@ export class TourAuthoringService {
     }
 
     addTourEquipment(tourId: number, eqId: number): Observable<Tour> {
-        return this.http.post<Tour>(
-            environment.apiHost + "tour/equipment/" + tourId + "/" + eqId,
-            {},
+        return this.http.get<Tour>(
+            environment.apiHost + "tour/equipment/add/" + tourId + "/" + eqId
         );
     }
 
     deleteTourEquipment(tourId: number, eqId: number): Observable<Tour> {
-        return this.http.delete<Tour>(
-            environment.apiHost + "tour/equipment/" + tourId + "/" + eqId,
+        return this.http.get<Tour>(
+            environment.apiHost + "tour/equipment/remove/" + tourId + "/" + eqId,
         );
     }
 
