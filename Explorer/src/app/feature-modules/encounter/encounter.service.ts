@@ -92,14 +92,6 @@ export class EncounterService {
         );
     }
 
-    getHiddenLocationEncounterById(encounterId: number): Observable<Encounter> {
-        return this.http.get<Encounter>(
-            environment.apiHost +
-                "tourist/hidden-location-encounter/" +
-                encounterId,
-        );
-    }
-
     completeHiddenLocationEncounter(
         userPositionWithRange: UserPositionWithRange,
         encounterId: number,
