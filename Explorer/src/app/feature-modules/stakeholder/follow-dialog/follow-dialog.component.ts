@@ -46,7 +46,7 @@ export class FollowDialogComponent implements OnInit {
         var clicked = this.followings.find(f => f.id == id);
         if (clicked != undefined) {
             if (clicked.followingStatus) {
-                this.service.deleteFollowing(id).subscribe({
+                this.service.deleteFollowing(this.userId,id).subscribe({
                     next: () => {
                         if (clicked != undefined) {
                             clicked.followingStatus = false;
@@ -77,7 +77,7 @@ export class FollowDialogComponent implements OnInit {
         var clicked = this.followers.find(f => f.id == id);
         if (clicked != undefined) {
             if (clicked.followingStatus) {
-                this.service.deleteFollowing(id).subscribe({
+                this.service.deleteFollowing(this.userId,id).subscribe({
                     next: () => {
                         if (clicked != undefined) {
                             clicked.followingStatus = false;
