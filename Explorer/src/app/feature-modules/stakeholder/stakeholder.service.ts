@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { PagedResults } from "src/app/shared/model/paged-results.model";
 import { environment } from "src/env/environment";
-import { Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { PersonUpdate } from "./model/person-update.model";
 import { ProblemComment } from "./model/problem-comment.model";
 import { Person } from "./model/person.model";
@@ -29,10 +29,20 @@ import { Problem } from "../marketplace/model/problem.model";
     providedIn: "root",
 })
 export class StakeholderService {
+    notifications$ = new BehaviorSubject<number>(0);
+
     countNotifications(): Observable<number> {
-        return this.http.get<number>(
-            environment.apiHost + "notifications/count",
-        );
+        return this.http
+            .get<number>(environment.apiHost + "notifications/count")
+            .pipe(
+                tap((notificationCount: number) => {
+                    this.setNotificationCount(notificationCount);
+                }),
+            );
+    }
+
+    setNotificationCount(notificationCount: number) {
+        this.notifications$.next(notificationCount);
     }
 
     deleteProblem(id: number): Observable<Problem> {
@@ -66,27 +76,30 @@ export class StakeholderService {
         );
     }
     getFollowers(id: number): Observable<PagedResults<Follower>> {
-        return this.http.get<PagedResults<Follower>>(
-            environment.apiHost + "follower/followers/" + id,
-        ).pipe(
-            tap(response => console.log('Followers:', response))
-          );
+        return this.http
+            .get<PagedResults<Follower>>(
+                environment.apiHost + "follower/followers/" + id,
+            )
+            .pipe(tap(response => console.log("Followers:", response)));
     }
     getFollowings(id: number): Observable<PagedResults<Following>> {
-        return this.http.get<PagedResults<Following>>(
-            environment.apiHost + "follower/followings/" + id,
-        ).pipe(
-            tap(response => console.log('Followings:', response))
-          );
+        return this.http
+            .get<PagedResults<Following>>(
+                environment.apiHost + "follower/followings/" + id,
+            )
+            .pipe(tap(response => console.log("Followings:", response)));
     }
     getSearched(searchUsername: string): Observable<PagedResults<UserFollow>> {
         return this.http.get<PagedResults<UserFollow>>(
             environment.apiHost + "follower/search/" + searchUsername,
         );
     }
-    deleteFollowing(userId: number,followingId: number): Observable<Following> {
+    deleteFollowing(
+        userId: number,
+        followingId: number,
+    ): Observable<Following> {
         return this.http.delete<Following>(
-            environment.apiHost + "follower/" + userId + "/" + followingId
+            environment.apiHost + "follower/" + userId + "/" + followingId,
         );
     }
     addFollowing(follow: FollowerCreate): Observable<FollowerCreate> {
@@ -205,6 +218,8 @@ export class StakeholderService {
     setSeenStatus(
         notificationId: number,
     ): Observable<ProblemResolvingNotification> {
+        let counter = this.notifications$.value;
+        this.setNotificationCount(counter);
         return this.http.get<ProblemResolvingNotification>(
             environment.apiHost +
                 "notifications/problems/set-seen/" +
@@ -250,6 +265,8 @@ export class StakeholderService {
     setSeenStatusForShoppingNotification(
         notificationId: number,
     ): Observable<ShoppingNotification> {
+        let counter = this.notifications$.value;
+        this.setNotificationCount(counter);
         return this.http.get<ShoppingNotification>(
             environment.apiHost +
                 "shoppingNotifications/set-seen/" +
