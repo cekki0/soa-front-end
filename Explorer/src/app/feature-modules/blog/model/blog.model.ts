@@ -15,4 +15,5 @@ export interface Blog {
     author: User;
     visibilityPolicy: number;
     showMore?: boolean;
+    isFollowing?:boolean;
 }

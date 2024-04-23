@@ -29,7 +29,7 @@ import { trigger, transition, style, animate } from "@angular/animations";
 })
 export class BlogsComponent implements OnInit {
     blogs: Blog[] = [];
-    user: User | undefined;
+    user: User;
     followings: Following[] = [];
     selectedStatus: number = 5;
     @Input() clubId: number = -1;
@@ -41,19 +41,32 @@ export class BlogsComponent implements OnInit {
 
     ngOnInit(): void {
         this.authService.user$.subscribe(user => {
-            this.user = user;
+          this.user = user;
+          this.loadFollowingsAndBlogs();
         });
+      }
+    
+      loadFollowingsAndBlogs(): void {
         this.loadFollowings();
         this.getBlogs();
-    }
+      }
+    
+      loadFollowings(): void {
+        this.serviceUsers.getFollowings(this.user.id).subscribe(result => {
+          this.followings = result.results;
+        });
+      }
+    
+      filterBlogsByFollowings(): void {
+        if (this.followings.length === 0 || this.blogs.length === 0) return;
+        const followingIds = this.followings.map(following => following.following.id);
 
-    loadFollowings(): void {
-        this.serviceUsers
-            .getFollowings(this.user?.id || 0)
-            .subscribe(result => {
-                this.followings = result.results;
-            });
-    }
+        this.blogs.forEach(blog => {
+          if (followingIds.includes(blog.author.id)) {
+            blog.isFollowing = true;
+          }
+        });
+      }
 
     checkIfFollowing(authorId: number): any {
         var found = false;
@@ -72,17 +85,27 @@ export class BlogsComponent implements OnInit {
         );
     }
 
+    removeUnfollowing(): void {
+        this.blogs = this.blogs.filter(
+            b =>
+                b.isFollowing === true
+        );
+    }
+
     filterByStatus(status: number) {
         this.getBlogs();
         this.selectedStatus = status;
     }
 
     getBlogs(): void {
+        console.log("Trece ovde udje")
         if(this.clubId == -1){
             this.service.getBlogs().subscribe({
                 next: (result: PagedResults<Blog>) => {
                     this.blogs = result.results;
+                    this.filterBlogsByFollowings();
                     this.removePrivates();
+                    this.removeUnfollowing();
                 },
                 error: () => {},
             });
@@ -90,7 +113,9 @@ export class BlogsComponent implements OnInit {
         else{
             this.service.getClubBlogs(this.clubId).subscribe({
                 next: (result: PagedResults<Blog>) => {
+                    this.filterBlogsByFollowings();
                     this.blogs = result.results;
+                    this.removeUnfollowing();
                 },
                 error: () => {},
             });
