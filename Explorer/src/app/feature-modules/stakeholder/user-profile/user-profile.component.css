@@ -20,6 +20,33 @@
     gap: 2rem;
 }
 
+.stavi-u-red{
+display: flex;
+}
+
+.user-card{
+    display: flex;
+    background-color: rgb(var(--clr-background-secondary));
+    width: 15rem;
+    height: 10rem;
+    margin:1rem;
+}
+
+.recommended-user-image{
+    width: 15rem;
+    height: 5rem;
+}
+
+.recommended-user{
+    font-size: 1rem;
+}
+
+.recommended{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .column {
     display: flex;
     flex-direction: column;

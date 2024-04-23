@@ -79,6 +79,7 @@
                             >
                                 +
                             </div>
+
                         </div>
                         <div class="row wallet" *ngIf="user.role == 'tourist'">
                             <div>
@@ -89,6 +90,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="column" style="margin-left: auto">
                         <div class="btn edit-btn" (click)="toggleEditing()">
                             Edit
@@ -133,6 +135,29 @@
                 <h1>Biography:</h1>
                 <div class="bio-text" [innerHTML]="bioMarkdown"></div>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <h1 style="display: flex; justify-content: center;">Recommended Accounts</h1>
+            <div class="recommended">
+        <div *ngFor="let u of recommendedUsers">
+            <mat-card class="user-card">
+              <img class="recommended-user-image" mat-card-image [src]="u.user.profilePicture">
+                <div class="stavi-u-red">
+                    <mat-card-content>
+                        <p>{{ u.user.username }}</p>
+                    </mat-card-content>
+                
+                    <mat-card-actions>
+                        <button mat-icon-button (click)="follow(u.id)">
+                        <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </mat-card>
+          </div>
+        </div>
         </div>
     </div>
 </ng-container>

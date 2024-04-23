@@ -15,6 +15,7 @@ import * as DOMPurify from "dompurify";
 import { marked } from "marked";
 import { Wallet } from "../model/wallet.model";
 import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog.component";
+import { FollowerCreate } from "../model/follower-create.model";
 
 @Component({
     selector: "xp-user-profile",
@@ -68,11 +69,28 @@ export class UserProfileComponent implements OnInit {
         this.service.getRecommendations(this.user.id).subscribe(result => {
             for (const userId of result) {
                 this.service.getByUserId(userId).subscribe(result => {
-                    this.recommendedUsers.push(result);
-                    console.log(this.recommendedUsers);
+                    if(result){
+                        this.recommendedUsers.push(result);
+                        console.log(this.recommendedUsers)
+                    }
+
                 });
             }
         });
+    }
+
+    follow(id: number) {
+        {
+            const followCreate: FollowerCreate = {
+                userId: id,
+                followedById: this.user.id,
+            };
+            this.service.addFollowing(followCreate).subscribe({
+                next: () => {
+                        this.loadFollowings();
+                },
+            });
+        }
     }
 
     loadFollowings() {
