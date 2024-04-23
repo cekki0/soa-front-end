@@ -94,6 +94,13 @@ export class StakeholderService {
             environment.apiHost + "follower/search/" + searchUsername,
         );
     }
+
+    getRecommendations(userId: number): Observable<number[]> {
+        return this.http.get<number[]>(
+            environment.apiHost + "follower/recommendations/" + userId,
+        );
+    }
+
     deleteFollowing(
         userId: number,
         followingId: number,

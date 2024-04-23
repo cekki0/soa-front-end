@@ -22,6 +22,7 @@ import { UserClubsDialogComponent } from "../user-clubs-dialog/user-clubs-dialog
     styleUrls: ["./user-profile.component.css"],
 })
 export class UserProfileComponent implements OnInit {
+    recommendedUsers: Person[] = [];
     editing = false;
     user: User;
     person: Person;
@@ -60,8 +61,20 @@ export class UserProfileComponent implements OnInit {
             this.loadFollowers();
             this.loadFollowings();
             this.loadWallet();
+            this.loadRecommendations();
         });
     }
+    loadRecommendations() {
+        this.service.getRecommendations(this.user.id).subscribe(result => {
+            for (const userId of result) {
+                this.service.getByUserId(userId).subscribe(result => {
+                    this.recommendedUsers.push(result);
+                    console.log(this.recommendedUsers);
+                });
+            }
+        });
+    }
+
     loadFollowings() {
         this.service.getFollowings(this.user.id).subscribe(result => {
             this.followings = result.results;
@@ -81,12 +94,12 @@ export class UserProfileComponent implements OnInit {
         });
     }
     loadWallet() {
-        if(this.user.role !== 'tourist'){
+        if (this.user.role !== "tourist") {
             return;
         }
         this.service.getTouristWallet().subscribe(result => {
             this.wallet = result;
-        })
+        });
     }
     openFollowersDialog(): void {
         const dialogRef = this.dialog.open(FollowDialogComponent, {
@@ -141,7 +154,7 @@ export class UserProfileComponent implements OnInit {
             },
         });
     }
-    openClubsDialog(){
+    openClubsDialog() {
         this.dialog.open(UserClubsDialogComponent, {
             data: {
                 userId: this.user.id,
